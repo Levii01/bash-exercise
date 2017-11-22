@@ -1,21 +1,23 @@
 #!/bin/sh
 
-if [ $# -eq 0 ]
-then
+if [ $# -eq 0 ] ;then
 	echo "Poprawne wywolanie: $0 arg1 arg2 ..."
 	exit 1
 fi
+
 suma=0
-while [ $1 ]
-do
-#	suma=`expr $suma + $1 2> /dev/null`
-#	suma=$(expr $suma + $1 2> /dev/null)
-	((suma=suma + $1)) 2> /dev/null
-	if [ $? -eq 2 ]
-	then
-		echo "Niewlasciwy argument!"
-		exit 2
+id=0
+
+while [ $1 ] ;do
+	id=`expr $id + 1`
+	if [ "$1" -eq "$1" ] 2>/dev/null; then
+		suma=`expr $suma + $1 2> /dev/null`
+		correct="$correct $1"
+	else
+		echo "Niewlasciwy argument! Numer: $id Wartosc: $1"
 	fi
 	shift
 done
+echo "Lista poprawnych argumentów: $correct"
 echo "Suma argumentow wynosi: $suma"
+exit 0
